@@ -10,3 +10,6 @@ clean-img:
 	docker rmi -f $(shell docker images -aq)
 
 clean: clean-ctr clean-img
+
+deploy:
+	docker stack deploy -c docker-compose.yml node-demo
