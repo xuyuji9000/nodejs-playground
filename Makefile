@@ -1,9 +1,12 @@
 IMAGE_NAME=node-img
-build:
-	docker build -t $(IMAGE_NAME) .
 
-run:
-	docker run --name node-ctr -p 80:3000 -d $(IMAGE_NAME)
+compose-up:
+	docker-compose up --build
 
-clean:
+clean-ctr:
 	docker rm -f $(shell docker ps -aq)
+
+clean-img:
+	docker rmi -f $(shell docker images -aq)
+
+clean: clean-ctr clean-img
