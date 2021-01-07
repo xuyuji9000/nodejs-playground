@@ -10,12 +10,32 @@ This document is used to support the Nodejs source code reading.
 - Dissect `fs.write()` function
 
     ``` js
+    // lib/fs.js
     const binding = internalBinding('fs');
     ```
 
     > This `binding` variable is used in almost every function in **fs.js** file. Something must be special about it.
 
-    > `internalBinding()` is from **loaders.js**. The main function of the loaders module is to load all libuv libraries and connect them through the V8 project with Nodejs.
+    ``` js
+    // lib/internal/bootstrap/loaders.js
+
+    // Set up internalBinding() in the closure.
+    let internalBinding;
+    {
+    const bindingObj = ObjectCreate(null);
+    // eslint-disable-next-line no-global-assign
+    internalBinding = function internalBinding(module) {
+        let mod = bindingObj[module];
+        if (typeof mod !== 'object') {
+        mod = bindingObj[module] = getInternalBinding(module);
+        ArrayPrototypePush(moduleLoadList, `Internal Binding ${module}`);
+        }
+        return mod;
+    };
+    }
+    ```
+
+    > `internalBinding()` is from **lib/internal/bootstrap/loaders.js**. The main function of the loaders module is to load all libuv libraries and connect them through the V8 project with Nodejs.
 
     ``` js
     binding.writeBuffer(...);
