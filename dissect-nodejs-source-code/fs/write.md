@@ -1,4 +1,4 @@
-This document is used to support read `fs.write()` source code in **lib/fs.js**.
+This document is used to support reading `fs.write()` source code in **lib/fs.js**.
 
 
 
