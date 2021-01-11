@@ -1,5 +1,6 @@
 This document is used to support the Nodejs source code reading.
 
+- Target Node version: `v14.9.0`
 
 - Understand Nodejs directory structure
 
