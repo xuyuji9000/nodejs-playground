@@ -6,3 +6,9 @@ Relevant files:
 - **lib/internal/child_process.js** contains `ChildProcess` object definition
 
 - **lib/child_process.js** defines high level functions built on top of `ChildProcess` object
+
+
+
+# Rference
+
+1. [Node module deep-dive: child_process](https://blog.safia.rocks/post/169346741925/node-module-deep-dive-childprocess)
