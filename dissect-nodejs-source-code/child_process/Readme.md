@@ -1,4 +1,4 @@
-This document is used to support understand `child_process` inside Nodejs source code.
+This document is used to support the understanding of the  source code of  `child_process` module .
 
 
 Relevant files: 
@@ -15,7 +15,8 @@ Questions:
 - How `process_wrap` is registered?
 
     ``` C++
-    // src/process_wrap.cc
+    // code snippet location: 
+    // - src/process_wrap.cc
 
     class ProcessWrap : public HandleWrap {
         // ...
@@ -64,6 +65,75 @@ Questions:
     ```
 
 
+
+
+
+- How `spawn()` handles `stdio`?
+
+    1. `spawn()` exported as a child_process module public function
+
+        ``` js
+        // code snippet location:
+        // lib/child_process.js
+        module.exports = {
+            // ...
+            spawn,
+            // ...
+        };
+
+        ```
+    2. `spawn()` function public facing definition.
+
+        ``` js
+        function spawn(file, args, options) {
+            const child = new ChildProcess();
+
+            options = normalizeSpawnArguments(file, args, options);
+            debug('spawn', options);
+            child.spawn(options);
+
+            return child;
+        }
+        ```
+
+        > What is under `ChildProcess.spawn`?
+
+    3. `spawn()` is a prototype function of `ChildProcess` class.
+
+        ```js
+        // code snippet location:
+        // - lib/internal/child_process.js
+        ChildProcess.prototype.spawn = function(options) {
+            // ...
+            stdio = getValidStdio(stdio, false);
+            // ...
+        }
+        ```
+    
+    4. Initilize stdio with `Pipe`
+
+        ```js
+        // code snippet location:
+        // - lib/internal/child_process.js
+        function getValidStdio(stdio, sync) {
+            // ...
+            if (!sync)
+                a.handle = new Pipe(PipeConstants.SOCKET);
+            // ...
+        }
+        ```
+
+    5. **stdio** is fundamentally `Socket`.
+
+        ``` js
+        // code snippet location:
+        // - lib/internal/child_process.js
+        function createSocket(pipe, readable) {
+            return net.Socket({ handle: pipe, readable, writable: !readable });
+        }
+        ```
+
+- How `net.Socket` init pipe?
 
 
 # Rference
