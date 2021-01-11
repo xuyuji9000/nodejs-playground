@@ -5,6 +5,8 @@ Relevant files:
 
 - **lib/internal/child_process.js** contains `ChildProcess` object definition
 
+    > **child_process** module is dependent on **process_wrap.cc** C++ code.
+
 - **lib/child_process.js** defines high level functions built on top of `ChildProcess` object
 
 
