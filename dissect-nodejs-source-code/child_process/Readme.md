@@ -135,6 +135,30 @@ Questions:
 
 - How `net.Socket` init pipe?
 
+    1. `createSocket`
+
+        ``` js
+        // code snippet location:
+        // - lib/internal/child_process.js
+        function createSocket(pipe, readable) {
+            return net.Socket({ handle: pipe, readable, writable: !readable });
+        }
+        ```
+    2. Initiate `Socket`
+
+        ``` js
+        // code snippet location:
+        // - lib/net.js
+        function Socket(options) {
+            // ...
+            if (options.handle) {
+                this._handle = options.handle; // private
+                this[async_id_symbol] = getNewAsyncId(this._handle);
+            }
+            // ...
+        }
+        ```
+
 
 # Rference
 
