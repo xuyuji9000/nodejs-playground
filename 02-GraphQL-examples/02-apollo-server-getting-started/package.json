@@ -1,0 +1,15 @@
+{
+  "name": "02-apollo-server-getting-started",
+  "version": "1.0.0",
+  "description": "This folder contains a GraphQL Apollo Server example.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@apollo/server": "^4.11.2",
+    "graphql": "^16.9.0"
+  }
+}
