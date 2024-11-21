@@ -1,0 +1,15 @@
+{
+  "name": "graphql-crash-course-5---resolver-functions",
+  "version": "1.0.0",
+  "description": "This folder contains a learning example of GraphQL resolver.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@apollo/server": "^4.11.2"
+  }
+}
